@@ -42,19 +42,19 @@ public class CrazyBars extends Application {
     }
 
     // FUNCTION: Draw grid when called.
-    // Draw 10 Horizontal (Row) lines 0-10 | 0 is top boundary line, 10 is bottom boundary line
-    // Draw 10 Vertical (Column) lines 0-10 | 0 is left boundary line, 10 is right boundary line
+    // Draw 11 Horizontal (Row) lines 0-10 | 0 is top boundary line, 10 is bottom boundary line
+    // Draw 11 Vertical (Column) lines 0-10 | 0 is left boundary line, 10 is right boundary line
     // NOTE: FOR ROWS AND COLUMNS, THERE IS A TOTAL OF 11 LINES BECAUSE OF BOUNDARY!
     // JAVA INDEXES AT 0
     private void DrawGrid() {
-        // Draw 10 Rows
+        // Draw 11 Rows
         // Note its i<=10 instead of i < 10 since we want 11 lines, might be cleaner to do i<11 but personal preference
         for (int i = 0; i <= 10; i++) {
             // create Line
             // set start/end coordinates
             // add line to pane
         }
-        //Draw 10 Columns
+        //Draw 11 Columns
         for (int i = 0; i <= 10; i++) {
             // create Line
             // set start/end coordinates
