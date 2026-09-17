@@ -1,14 +1,16 @@
+package com.crazybars.crazybars;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import javafx.scene.shape.Line;
+
 // Import JavaFX into Intellij via manual download
 // Can change code to import intellij via code just search online if that's easier for you
 
-import java.util.Random;
 
 public class CrazyBars extends Application {
 
@@ -32,7 +34,7 @@ public class CrazyBars extends Application {
         DrawGrid();
 
         // Give Bars[] random values
-        DrawBars();
+        // DrawBars();
 
         Scene scene = new Scene(pane, 550, 550);
 
@@ -53,19 +55,27 @@ public class CrazyBars extends Application {
             // create Line
             // set start/end coordinates
             // add line to pane
+
+            int startY = i * CELL_SIZE;
+            Line myRow = new Line(0, startY, 550, startY);
+            pane.getChildren().add(myRow);
+
         }
         //Draw 11 Columns
         for (int i = 0; i <= 10; i++) {
             // create Line
             // set start/end coordinates
             // add line to pane
+            int startX = i * CELL_SIZE;
+            Line myColumn = new Line(startX, 0, startX, 550);
+            pane.getChildren().add(myColumn);
         }
 
     }
 
     // FUNCTION: Manipulate each of the 10 bars Y Size to random integer, and assign the bar a new random color.
-    private void DrawBars() {
-        for (int i = 0; i < 10; i++) {
+  //  private void DrawBars() {
+  //      for (int i = 0; i < 10; i++) {
 
             // generate random height from 1-10
 
@@ -79,8 +89,8 @@ public class CrazyBars extends Application {
             // generate random color
 
             // change Bars[i] color
-        }
-    }
+    //    }
+  //  }
 
     //FUNCTION: Create 10 bars with correct X positional data, a standard size, then store into Bars Array.
     private void Initialize(){
