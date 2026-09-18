@@ -1,10 +1,18 @@
 package com.crazybars.crazybars;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javafx.scene.shape.Line;
 
@@ -23,19 +31,37 @@ public class CrazyBars extends Application {
     // Size of each grid square
     private final int CELL_SIZE = 50;
 
+    private MediaPlayer soundPlayer;
+
     @Override
     public void start(Stage stage) {
         Initialize();
 
-        // Create redraw button
-        // When button clicked:
         DrawBars();
         DrawGrid();
 
-        // Give Bars[] random values
-        // DrawBars();
+        Media sound = new Media(getClass().getResource("/sounds/crazy-frog.mp3").toExternalForm());
+        soundPlayer = new MediaPlayer(sound);
+        soundPlayer.setStopTime(Duration.seconds(5));
 
-        Scene scene = new Scene(pane, 550, 550);
+        // Create redraw button
+        Button redrawButton = new Button("Redraw");
+        // When button clicked: call DrawBars() to update bar heights/colors, and play the sound
+        redrawButton.setOnAction(e -> {
+            DrawBars();
+            soundPlayer.stop();
+            soundPlayer.play();
+        });
+
+        HBox buttonBox = new HBox(redrawButton);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setPadding(new Insets(10));
+
+        BorderPane root = new BorderPane();
+        root.setCenter(pane);
+        root.setBottom(buttonBox);
+
+        Scene scene = new Scene(root, 550, 600);
 
         stage.setTitle("Crazy Bars");
         stage.setScene(scene);
