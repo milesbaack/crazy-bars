@@ -1,16 +1,25 @@
 package com.crazybars.crazybars;
+
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.util.Objects;
 
 // Import JavaFX into Intellij via manual download
 // Can change code to import intellij via code just search online if that's easier for you
-
 
 public class CrazyBars extends Application {
 
@@ -23,19 +32,48 @@ public class CrazyBars extends Application {
     // Size of each grid square
     private final int CELL_SIZE = 50;
 
+    // Declare the soundPlayer variable
+    private MediaPlayer soundPlayer;
+
     @Override
     public void start(Stage stage) {
         Initialize();
 
-        // Create redraw button
-        // When button clicked:
+        // Initial draw
         DrawBars();
         DrawGrid();
 
-        // Give Bars[] random values
-        // DrawBars();
+        try {
+            Media sound = new Media(Objects.requireNonNull(getClass().getResource("/sounds/crazy-frog.mp3")).toExternalForm());
+            soundPlayer = new MediaPlayer(sound);
+            soundPlayer.setStopTime(Duration.seconds(5));
+        } catch (NullPointerException e) {
+            System.err.println("Audio file not found! Make sure 'crazy-frog.mp3' is inside 'src/main/resources/sounds/'");
+        }
 
-        Scene scene = new Scene(pane, 550, 550);
+        // Create redraw button
+        Button redrawButton = new Button("Redraw");
+
+        // When button clicked: call DrawBars() to update bar heights/colors, and play the sound
+        redrawButton.setOnAction(e -> {
+            DrawBars();
+            if (soundPlayer != null) {
+                soundPlayer.stop();
+                soundPlayer.play();
+            }
+        });
+
+        // Added redrawButton into the HBox so it actually shows up on the screen
+        HBox buttonBox = new HBox(redrawButton);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setPadding(new Insets(10));
+
+        BorderPane root = new BorderPane();
+        root.setCenter(pane);
+        root.setBottom(buttonBox);
+
+        root.setStyle("-fx-background-color: #D3D3D3;"); //set background color to light grey
+        Scene scene = new Scene(root, 550, 550);
 
         stage.setTitle("Crazy Bars");
         stage.setScene(scene);
@@ -54,12 +92,11 @@ public class CrazyBars extends Application {
             // create Line
             // set start/end coordinates
             // add line to pane
-
             int startY = i * CELL_SIZE;
             Line myRow = new Line(0, startY, 550, startY);
             pane.getChildren().add(myRow);
-
         }
+
         //Draw 11 Columns
         for (int i = 0; i <= 10; i++) {
             // create Line
@@ -69,32 +106,30 @@ public class CrazyBars extends Application {
             Line myColumn = new Line(startX, 0, startX, 550);
             pane.getChildren().add(myColumn);
         }
-
     }
 
     // FUNCTION: Manipulate each of the 10 bars Y Size to random integer, and assign the bar a new random color.
     private void DrawBars() {
         for (int i = 0; i < 10; i++) {
-
-             //generate random height from 1-10
+            //generate random height from 1-10
             int randomHeight = (int) (Math.random() * 10) + 1;
-             //convert height into pixels
+            //convert height into pixels
             double heightInPixels = randomHeight * CELL_SIZE;
-             //change Bars[i] height
+            //change Bars[i] height
             Bars[i].setHeight(heightInPixels);
-             //change Bars[i] Y position
-            Bars[i].setY(500 - heightInPixels);
+            //change Bars[i] Y position
+            Bars[i].setY(550 - heightInPixels);
 
-             //generate random color
+            //generate random color
             Color randomColor = Color.color(
                     Math.random(),
                     Math.random(),
                     Math.random()
             );
-             //change Bars[i] color
+            //change Bars[i] color
             Bars[i].setColor(randomColor);
         }
-  }
+    }
 
     //FUNCTION: Create 10 bars with correct X positional data, a standard size, then store into Bars Array.
     private void Initialize(){
@@ -104,28 +139,18 @@ public class CrazyBars extends Application {
             // Set X position based on i
             Bars[i].setX(i * CELL_SIZE);
             // Set starting Y position
-            Bars[i].setY(500);
+            Bars[i].setY(550);
             // Set starting width
             Bars[i].setWidth(CELL_SIZE);
             // Set starting height
             Bars[i].setHeight(0);
             // Add actual Rectangle to pane:
-            pane.getChildren().add(
-                    Bars[i].getRectangle()
-            );
-
-            //Please look at Rect Class
+            pane.getChildren().add(Bars[i].getRectangle());
         }
-
-
-
-
     }
 
     public static void main(String[] args) {
         launch(args);
-
-
     }
 }
 
@@ -175,9 +200,4 @@ class Rect {
     public void setColor(Color color) {
         rectangle.setFill(color);
     }
-
-
 }
-
-
-
