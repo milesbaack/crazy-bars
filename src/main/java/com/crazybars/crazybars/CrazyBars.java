@@ -29,8 +29,7 @@ public class CrazyBars extends Application {
 
         // Create redraw button
         // When button clicked:
-        // DrawBars();
-
+        DrawBars();
         DrawGrid();
 
         // Give Bars[] random values
@@ -74,23 +73,28 @@ public class CrazyBars extends Application {
     }
 
     // FUNCTION: Manipulate each of the 10 bars Y Size to random integer, and assign the bar a new random color.
-  //  private void DrawBars() {
-  //      for (int i = 0; i < 10; i++) {
+    private void DrawBars() {
+        for (int i = 0; i < 10; i++) {
 
-            // generate random height from 1-10
+             //generate random height from 1-10
+            int randomHeight = (int) (Math.random() * 10) + 1;
+             //convert height into pixels
+            double heightInPixels = randomHeight * CELL_SIZE;
+             //change Bars[i] height
+            Bars[i].setHeight(heightInPixels);
+             //change Bars[i] Y position
+            Bars[i].setY(500 - heightInPixels);
 
-            // convert height into pixels
-
-            // change Bars[i] height
-
-            // change Bars[i] Y position
-            // Y = bottom of graph - height
-
-            // generate random color
-
-            // change Bars[i] color
-    //    }
-  //  }
+             //generate random color
+            Color randomColor = Color.color(
+                    Math.random(),
+                    Math.random(),
+                    Math.random()
+            );
+             //change Bars[i] color
+            Bars[i].setColor(randomColor);
+        }
+  }
 
     //FUNCTION: Create 10 bars with correct X positional data, a standard size, then store into Bars Array.
     private void Initialize(){
@@ -98,13 +102,13 @@ public class CrazyBars extends Application {
             Bars[i] = new Rect();
 
             // Set X position based on i
-
+            Bars[i].setX(i * CELL_SIZE);
             // Set starting Y position
-
+            Bars[i].setY(500);
             // Set starting width
-
+            Bars[i].setWidth(CELL_SIZE);
             // Set starting height
-
+            Bars[i].setHeight(0);
             // Add actual Rectangle to pane:
             pane.getChildren().add(
                     Bars[i].getRectangle()
