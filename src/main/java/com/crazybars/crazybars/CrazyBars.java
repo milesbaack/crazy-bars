@@ -24,7 +24,7 @@ import java.util.Objects;
 public class CrazyBars extends Application {
 
     // Stores the rectangles calls it Bars
-    private Rect[] Bars = new Rect[10];
+    private Rect[] Bars = new Rect[11];
 
     // The area where everything will be drawn
     private Pane pane = new Pane();
@@ -110,7 +110,7 @@ public class CrazyBars extends Application {
 
     // FUNCTION: Manipulate each of the 10 bars Y Size to random integer, and assign the bar a new random color.
     private void DrawBars() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 11; i++) {
             //generate random height from 1-10
             int randomHeight = (int) (Math.random() * 10) + 1;
             //convert height into pixels
@@ -133,7 +133,7 @@ public class CrazyBars extends Application {
 
     //FUNCTION: Create 10 bars with correct X positional data, a standard size, then store into Bars Array.
     private void Initialize(){
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 11; i++) {
             Bars[i] = new Rect();
 
             // Set X position based on i
