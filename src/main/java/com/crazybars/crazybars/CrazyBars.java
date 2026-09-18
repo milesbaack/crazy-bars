@@ -61,7 +61,8 @@ public class CrazyBars extends Application {
         root.setCenter(pane);
         root.setBottom(buttonBox);
 
-        Scene scene = new Scene(root, 550, 600);
+        root.setStyle("-fx-background-color: #D3D3D3;"); //set background color to light grey
+        Scene scene = new Scene(root, 550, 550);
 
         stage.setTitle("Crazy Bars");
         stage.setScene(scene);
@@ -109,7 +110,7 @@ public class CrazyBars extends Application {
              //change Bars[i] height
             Bars[i].setHeight(heightInPixels);
              //change Bars[i] Y position
-            Bars[i].setY(500 - heightInPixels);
+            Bars[i].setY(550 - heightInPixels);
 
              //generate random color
             Color randomColor = Color.color(
@@ -130,7 +131,7 @@ public class CrazyBars extends Application {
             // Set X position based on i
             Bars[i].setX(i * CELL_SIZE);
             // Set starting Y position
-            Bars[i].setY(500);
+            Bars[i].setY(550);
             // Set starting width
             Bars[i].setWidth(CELL_SIZE);
             // Set starting height
